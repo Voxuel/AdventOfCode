@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Diagnostics;
-using System.Text;
+using System.Text.RegularExpressions;
 
 
 // Program for adventofCode.com
@@ -27,11 +27,23 @@ namespace SmoothSentences
 
             var directions = new List<string> { };
             var intDirections = new List<int> { };
-
+            var strDirections = new List<string> { };
             foreach (string dir in System.IO.File.ReadLines("Directions.txt"))
             {
                 directions.Add(dir);
             }
+            intDirections = ConvertedToIntList(directions);
+            strDirections = ConvertedToStringList(directions);
+        }
+        static List<string> ConvertedToStringList(List<string> fullList)
+        {
+            var firstPartList = new List<string> { };
+            foreach (var item in fullList)
+            {
+                var result = Regex.Match(item, @"^([\w\-]+)");
+                firstPartList.Add(result.Value);
+            }
+            return firstPartList;
         }
         // Method for spliting List of strings to seperate string and int.
         static List<int> ConvertedToIntList(List<string> fullList)
