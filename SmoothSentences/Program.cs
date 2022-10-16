@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
+using System.Text;
 
 
 // Program for adventofCode.com
@@ -23,12 +25,38 @@ namespace SmoothSentences
             int threeWindowMeasurment = ThreeMeasurementWindows(pos);
             Console.WriteLine(threeWindowMeasurment);
 
+            var directions = new List<string> { };
+            var intDirections = new List<int> { };
+
+            foreach (string dir in System.IO.File.ReadLines("Directions.txt"))
+            {
+                directions.Add(dir);
+            }
+        }
+        // Method for spliting List of strings to seperate string and int.
+        static List<int> ConvertedToIntList(List<string> fullList)
+        {
+            List<int> nums = new List<int> { };
+            int val = 0;
+            foreach (var item in fullList)
+            {
+            item.Split(' ')
+            .Select(i =>
+            {
+            return int.TryParse(i, out val) ? (int?)val : null;
+            })
+            .Where(i => i.HasValue)
+            .Cast<int>()
+            .ToList();
+             nums.Add(val);
+            }
+            return nums;
         }
         private static int CalcNumberOfIncreases(List<int> input)
         {
             int count = 0;
             int i = 1;
-            while(i < input.Count())
+            while (i < input.Count())
             {
                 if (input[i] > input[i - 1]) count++;
                 i++;
@@ -51,6 +79,10 @@ namespace SmoothSentences
                 if (next > current) count++;
             }
             return count;
+        }
+        private static void Controller(List<string> dir, int pos)
+        {
+
         }
     }
 }
