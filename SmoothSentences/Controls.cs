@@ -13,23 +13,25 @@ namespace SmoothSentences
             int val = 0;
             int depth = 0;
             int hori = 0;
+            int aim = 0;
 
             foreach (var item in dir)
             {
                 if (item.Contains("up"))
                 {
                     val = int.Parse(Regex.Match(item, @"\d+").Value);
-                    depth -= val;
+                    aim -= val;
                 }
                 if (item.Contains("down"))
                 {
                     val = int.Parse(Regex.Match(item, @"\d+").Value);
-                    depth += val;
+                    aim += val;
                 }
                 if (item.Contains("forward"))
                 {
                     val = int.Parse(Regex.Match(item, @"\d+").Value);
                     hori += val;
+                    depth += aim * val;
                 }
             }
             int sum = depth * hori;
