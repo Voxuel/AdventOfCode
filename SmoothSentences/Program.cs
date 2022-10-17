@@ -21,16 +21,19 @@ namespace SmoothSentences
             }
             var pos = positions.Select(int.Parse).ToList();
             int x = CalcNumberOfIncreases(pos);
-            Console.WriteLine(x);
+            //Console.WriteLine(x);
             int threeWindowMeasurment = ThreeMeasurementWindows(pos);
-            Console.WriteLine(threeWindowMeasurment);
+            //Console.WriteLine(threeWindowMeasurment);
 
             var directions = new List<string> { };
             foreach (string dir in System.IO.File.ReadLines("Directions.txt"))
             {
                 directions.Add(dir);
             }
-            Console.WriteLine(Controls.Controller(directions));
+            //Console.WriteLine(Controls.Controller(directions));
+
+            BinaryDiagnostic.BinData();
+            Console.ReadKey();
         }
 
 
